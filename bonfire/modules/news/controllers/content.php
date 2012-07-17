@@ -326,7 +326,7 @@ class Content extends Admin_Controller {
 		}
 
 		$article = $this->news_model->find($article_id);
-		if (isset($article) && has_permission('Site.News.Manage'))
+		if (isset($article) && has_permission('News.Content.Manage'))
 		{
 			Template::set('article', $article);
 
