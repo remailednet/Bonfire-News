@@ -178,7 +178,7 @@ class Content extends Admin_Controller {
 					}
 				}
 				break;
-			case 'author':
+			case 'user':
 				$user_id = (int)$this->input->get('user_id');
 				$where['news_articles.author'] = $user_id;
 
