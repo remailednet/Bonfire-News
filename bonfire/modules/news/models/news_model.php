@@ -57,16 +57,14 @@ class News_model extends BF_Model {
 			return false;
 		}
 
-		$data['date'] = strtotime($data['date']);
-
 		$data['attachment'] = (isset($data['attachment']) && !empty($data['attachment']) ? $data['attachment'] : '');
 
 		$data['image_align'] = (isset($data['image_align']) && !empty($data['image_align']) ? $data['image_align'] : '');
 
 		$data['image_caption'] = (isset($data['image_caption']) && !empty($data['image_caption']) ? $data['image_caption'] : '');
 
-		$data['date_published'] = (isset($data['date_published']) && !empty($data['date_published']) ? strtotime($data['date_published']) : $data['date']);
-
+		$data['date_published'] = (isset($data['date_published']) && !empty($data['date_published']) ? $data['date_published'] : $data['date']);
+		
 		$data['author'] = $data['created_by'] = $data['modified_by'] = (isset($data['author']) && !empty($data['author'])) ? $data['author'] : (($auth != NULL) ? $auth->user_id() : 1);
 
 		// What's the default category?
