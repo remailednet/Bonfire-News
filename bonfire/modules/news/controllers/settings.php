@@ -2,7 +2,7 @@
 
 class Settings extends Admin_Controller {
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
 	public function __construct()
 	{
@@ -43,30 +43,37 @@ class Settings extends Admin_Controller {
 
 	private function save_settings()
 	{
-		$this->form_validation->set_rules('default_article_count', lang('nw_default_article_count'), 'required|numeric|max_length[3]|xss_clean');
-		$this->form_validation->set_rules('public_submissions', lang('nw_public_submissions'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('public_submitters', lang('nw_public_submitters'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('public_moderation', lang('nw_public_moderation'), 'numeric|xss_clean');
-		
-		$this->form_validation->set_rules('comments_enabled', lang('nw_comments_enabled'), 'numeric|xss_clean');
-		
-		$this->form_validation->set_rules('allow_attachments', lang('nw_settings_attachAllow'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('upload_dir_path', lang('nw_upload_dir_path'), 'required|strip_tags|xss_clean');
-		$this->form_validation->set_rules('upload_dir_url', lang('nw_upload_dir_url'), 'required|strip_tags|xss_clean');
-		$this->form_validation->set_rules('max_img_size', lang('nw_max_img_size'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('max_img_width', lang('nw_max_img_width'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('max_img_height', lang('nw_max_img_height'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('max_img_disp_width', lang('nw_max_img_disp_width'), 'numeric|xss_clean');
-		$this->form_validation->set_rules('max_img_disp_height', lang('nw_max_img_disp_height'), 'numeric|xss_clean');
-		
-		$this->form_validation->set_rules('sharing_enabled', lang('nw_sharing_enabled'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_facebook', lang('nw_share_facebook'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_twitter', lang('nw_share_twitter'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_stumbleupon', lang('nw_share_stumbleupon'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_delicious', lang('nw_share_delicious'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_email', lang('nw_share_email'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_fblike', lang('nw_share_fblike'), 'numeric|strip_tags|max_length[1]|xss_clean');
-		$this->form_validation->set_rules('share_plusone', lang('nw_share_plusone'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('default_article_count', lang('nw_default_article_count'), 'required|numeric|max_length[3]|xss_clean');
+        $this->form_validation->set_rules('public_submissions', lang('nw_public_submissions'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('public_submitters', lang('nw_public_submitters'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('public_moderation', lang('nw_public_moderation'), 'numeric|xss_clean');
+        
+        $this->form_validation->set_rules('comments_enabled', lang('nw_comments_enabled'), 'numeric|xss_clean');
+        
+        $this->form_validation->set_rules('allow_attachments', lang('nw_settings_attachAllow'), 'numeric|xss_clean');
+        
+        $upload_rules = "strip_tags|xss_clean";
+        
+        if ($this->input->post('allow_attachments') == 1) {
+            $upload_rules = "required|" . $upload_rules;
+        }
+        
+        $this->form_validation->set_rules('upload_dir_path', lang('nw_upload_dir_path'), $upload_rules);
+        $this->form_validation->set_rules('upload_dir_url', lang('nw_upload_dir_url'), $upload_rules);
+        $this->form_validation->set_rules('max_img_size', lang('nw_max_img_size'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('max_img_width', lang('nw_max_img_width'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('max_img_height', lang('nw_max_img_height'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('max_img_disp_width', lang('nw_max_img_disp_width'), 'numeric|xss_clean');
+        $this->form_validation->set_rules('max_img_disp_height', lang('nw_max_img_disp_height'), 'numeric|xss_clean');
+        
+        $this->form_validation->set_rules('sharing_enabled', lang('nw_sharing_enabled'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_facebook', lang('nw_share_facebook'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_twitter', lang('nw_share_twitter'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_stumbleupon', lang('nw_share_stumbleupon'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_delicious', lang('nw_share_delicious'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_email', lang('nw_share_email'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_fblike', lang('nw_share_fblike'), 'numeric|strip_tags|max_length[1]|xss_clean');
+        $this->form_validation->set_rules('share_plusone', lang('nw_share_plusone'), 'numeric|strip_tags|max_length[1]|xss_clean');
 
 		if ($this->form_validation->run() === false)
 		{
