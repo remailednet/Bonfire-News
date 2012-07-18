@@ -349,38 +349,30 @@ class Content extends Admin_Controller {
 
 	//--------------------------------------------------------------------
 
-	public function delete()
+	public function delete($checked = false)
 	{
-		$id = $this->uri->segment(5);
-
-		if (!empty($id))
-		{
-            $this->auth->restrict('News.Content.Manage');
-            $article = $this->news_model->find($id);
-			if (isset($article))
-			{
-				if ($this->news_model->delete($id))
-				{
-					$article = $this->news_model->find($id);
-					$this->load->model('activities/activity_model');
-
-					$log_name = $this->current_user->email;
-
-                    $this->activity_model->log_activity($this->current_user->id, 'Deleted Article: '. $id, 'news');
-                    Template::set_message('The article was successfully deleted.', 'success');
-				}
-				else
-				{
-					Template::set_message('Article could not be deleted: '. $this->news_model->error, 'error');
-				}							
-			}
-		}
-		else
-		{
-			Template::set_message(lang('us_empty_id'), 'error');
-		}
-
-		redirect(SITE_AREA .'/content/news');
+	    if ($checked === false)
+	    {
+	        return;
+	    }
+	    $this->auth->restrict('News.Content.Manage');
+	    foreach ($checked as $article_id)
+	    {
+	        $article = $this->news_model->find($article_id);
+	        if (isset($article))
+	        {
+	            $this->load->model('activities/activity_model');
+	
+                    $this->news_model->delete($article_id);
+	
+	            $this->activity_model->log_activity($this->current_user->id, 'Deleted Article: '. $article_id, 'news');
+	            Template::set_message('The article was successfully deleted.', 'success');
+	        }
+	        else
+	        {
+	            Template::set_message('Article could not be deleted: '. $this->news_model->error, 'error');
+	        }
+	    }
 	}
 
 	//--------------------------------------------------------------------
