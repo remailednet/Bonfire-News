@@ -69,7 +69,7 @@ $lang['us_action_publish']			= 'Publish';
 $lang['us_action_archive']			= 'Archive';
 $lang['us_action_archived']			= 'Archived';
 $lang['us_status_change']			= 'Change Status';
-$lang['us_deleted_articles']		= 'Deleted.';
+$lang['us_deleted_articles']		= 'Deleted';
 
 $lang['us_published_articles']		= 'Published articles.';
 $lang['no_articles']				= 'No articles were found.';
